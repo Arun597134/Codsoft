@@ -1,4 +1,4 @@
-# Codsoft
+# Codsoft Task 1 - Number Game 
 
 import java.util.Scanner;
 import java.util.Random;
