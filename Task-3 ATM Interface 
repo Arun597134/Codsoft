@@ -1,0 +1,83 @@
+import java.util.Scanner;
+
+public class ATMInterface {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Initialize account balance and a sample PIN for authentication
+        double balance = 5000.00; // Default balance
+        int pin = 1234; // Default PIN
+        int userPin;
+
+        System.out.println("Welcome to the ATM!");
+
+        // Authenticate user
+        System.out.print("Please enter your 4-digit PIN: ");
+        userPin = scanner.nextInt();
+
+        if (userPin != pin) {
+            System.out.println("Incorrect PIN. Access Denied.");
+            return; // Exit the program if authentication fails
+        }
+
+        boolean exit = false;
+
+        // ATM menu loop
+        while (!exit) {
+            System.out.println("\n--- ATM Menu ---");
+            System.out.println("1. Check Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Check Balance
+                    System.out.println("Your current balance is: $" + balance);
+                    break;
+
+                case 2:
+                    // Deposit Money
+                    System.out.print("Enter the amount to deposit: $");
+                    double depositAmount = scanner.nextDouble();
+                    if (depositAmount > 0) {
+                        balance += depositAmount;
+                        System.out.println("Successfully deposited $" + depositAmount);
+                        System.out.println("Your updated balance is: $" + balance);
+                    } else {
+                        System.out.println("Invalid deposit amount. Please try again.");
+                    }
+                    break;
+
+                case 3:
+                    // Withdraw Money
+                    System.out.print("Enter the amount to withdraw: $");
+                    double withdrawAmount = scanner.nextDouble();
+                    if (withdrawAmount > 0 && withdrawAmount <= balance) {
+                        balance -= withdrawAmount;
+                        System.out.println("Successfully withdrew $" + withdrawAmount);
+                        System.out.println("Your updated balance is: $" + balance);
+                    } else if (withdrawAmount > balance) {
+                        System.out.println("Insufficient balance. Transaction declined.");
+                    } else {
+                        System.out.println("Invalid withdrawal amount. Please try again.");
+                    }
+                    break;
+
+                case 4:
+                    // Exit
+                    System.out.println("Thank you for using the ATM. Goodbye!");
+                    exit = true;
+                    break;
+
+                default:
+                    // Invalid Option
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
+
+        scanner.close();
+    }
+}
